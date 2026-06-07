@@ -566,7 +566,7 @@ void toggle_help(void)
         wprintw(help_win, "  ^S left  ^D right           ^G del char            ^KB begin             ^KS save\n");
         wprintw(help_win, "  ^E up    ^X down            ^H backspace           ^KK end               ^KO open\n");
         wprintw(help_win, "  ^A <word ^F >word           ^T del word            ^KC copy              ^KN new\n");
-        wprintw(help_win, "  ^QS bol  ^QD eol            ^Y del line            ^KV paste             ^X  exit\n");
+        wprintw(help_win, "  ^QS bol  ^QD eol            ^Y del line            ^KV paste             ^KQ exit\n");
         wprintw(help_win, "  ^QR top  ^QC bottom         ^QF search             ^KY cut               ^J toggle help\n");
         wprintw(help_win, "                             ^K0-9 set mark\n");
         wprintw(help_win, "                             ^Q0-9 goto mark\n");
