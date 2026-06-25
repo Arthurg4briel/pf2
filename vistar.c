@@ -181,11 +181,12 @@ int main(int argc, char *argv[])
         }
 
         draw_text();
+        wnoutrefresh(stdscr);
         update_status();
-        
+        if(help_visible && help_win) wnoutrefresh(help_win);
         int screen_y = cursor_y - buffer->top_line + (help_visible ? 7 : 0);
         move(screen_y, cursor_x);
-        refresh();
+        doupdate();
 
         ch = getch();
         
@@ -386,6 +387,14 @@ int main(int argc, char *argv[])
                         if(help_win) delwin(help_win);
                         help_win = newwin(7, COLS, 0, 0);
                         wbkgd(help_win, COLOR_PAIR(1));
+                        wprintw(help_win, "  MOVE                        EDIT                    BLOCK                 FILE\n");
+                        wprintw(help_win, "  ^S left  ^D right           ^G del char            ^KB begin             ^KS save\n");
+                        wprintw(help_win, "  ^E up    ^X down            ^H backspace           ^KK end               ^KO open\n");
+                        wprintw(help_win, "  ^A <word ^F >word           ^T del word            ^KC copy              ^KN new\n");
+                        wprintw(help_win, "  ^QS bol  ^QD eol            ^Y del line            ^KV paste             ^KQ exit\n");
+                        wprintw(help_win, "  ^QR top  ^QC bottom         ^QF search             ^KY cut               ^J toggle help\n");
+                        wprintw(help_win, "                             ^K0-9 set mark\n");
+                        wprintw(help_win, "                             ^Q0-9 goto mark\n");
                     }
                     refresh();
                     break;
@@ -553,7 +562,7 @@ void update_status(void)
     werase(status_win);
     mvwprintw(status_win, 0, 0, " %s | Line: %d Col: %d%s",
               filename[0] ? filename : "[Sem Nome]", cursor_y + 1, cursor_x + 1, modified ? " | Modified" : "");
-    wrefresh(status_win);
+    wnoutrefresh(status_win);
 }
 
 /* ------------------------------------------------------------------------- */
